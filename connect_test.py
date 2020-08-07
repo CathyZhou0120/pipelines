@@ -14,10 +14,6 @@ def main():
         'service_principal_id': os.environ['SPN_ID'],
         'service_principal_password': os.environ['SPN_PASSWORD'],
     }
-    # Instantiate Blob Storage Interface
-    blob_storage_interface = BlobStorageInterface(
-        storage_acct_name, storage_acct_key
-    )
 
     aml_interface = AMLInterface(
         spn_credentials, subscription_id, workspace_name, resource_group
