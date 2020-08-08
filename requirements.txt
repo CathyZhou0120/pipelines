@@ -4,4 +4,3 @@ joblib==0.14.1
 pandas==1.0.3
 requests==2.23.0
 scikit-learn==0.22.2.post1
-psycopg2
