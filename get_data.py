@@ -4,52 +4,53 @@ import pandas as pd
 from blob_storage import BlobStorageInterface
 from const import TRAINING_CONTAINER, SCORING_CONTAINER, TRAINING_DATASTORE
 from connect import AMLInterface
-import psycopg2
 from sklearn.model_selection import train_test_split
 
 
-def read_df(csv_name):
-    df=pd.read_csv(csv_name)
-    X=df.drop(['class'],axis=1)
-    y=df['class']
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    X_train, X_test, X_val, y_val = train_test_split(X_train, y_train, test_size=0.2, random_state=42)
 
-    return X_train, y_train, X_val, y_val, X_test, y_test
+class get_data():
+    def __init__(self):
+        df=pd.read_csv('data.csv')
+        X=df.drop(['class'],axis=1)
+        y=df['class']
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        self.X_train, self.X_test, self.X_val, self.y_val = train_test_split(self.X_train, self.y_train, test_size=0.2, random_state=42)
 
 
-def upload_training_data(BlobStorageInterface, X_train, y_train,X_val, y_val, X_test, y_test):
-    BlobStorageInterface.upload_df_to_blob(
-          X_train,
+    def upload_training_data(self, blob_storage):
+        blob_storage.upload_df_to_blob(
+          self.X_train,
           TRAINING_CONTAINER,
           'train/X_train.csv'
-    )
-    BlobStorageInterface.upload_df_to_blob(
-            y_train,
+        )
+        blob_storage.upload_df_to_blob(
+            self.y_train,
             TRAINING_CONTAINER,
             'train/y_train.csv'
         )
 
-    BlobStorageInterface.upload_df_to_blob(
-            X_test,
+        blob_storage.upload_df_to_blob(
+            self.X_test,
             TRAINING_CONTAINER,
             'test/X_test.csv'
         )
-    BlobStorageInterface.upload_df_to_blob(
-            y_test,
+        blob_storage.upload_df_to_blob(
+            self.y_test,
             TRAINING_CONTAINER,
             'test/y_test.csv'
         )
-    BlobStorageInterface.upload_df_to_blob(
-            X_valid,
+        blob_storage.upload_df_to_blob(
+            self.X_valid,
             SCORING_CONTAINER,
             'X_valid.csv'
         )
-    BlobStorageInterface.upload_df_to_blob(
-            y_valid,
+        blob_storage.upload_df_to_blob(
+            self.y_valid,
             SCORING_CONTAINER,
             'y_valid.csv'
         )
+    def upload_data(self, blob_storage):
+        self.upload_training_data(blob_storage)
 
 
 def main():
@@ -69,9 +70,8 @@ def main():
         storage_acct_name, storage_acct_key
     )
 
-    X_train, y_train, X_val, y_val, X_test, y_test = read_df('data.csv')
-    
-    upload_training_data(blob_storage_interface, X_train, y_train,X_val, y_val, X_test, y_test)
+    data_creator = get_data()
+    data_creator.upload_data(blob_storage_interface)
 
     aml_interface = AMLInterface(
         spn_credentials, subscription_id, workspace_name, resource_group
