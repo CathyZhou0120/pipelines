@@ -23,7 +23,7 @@ class BlobStorageInterface:
         except ResourceExistsError:
             pass
 
-    def upload_df_to_blob(self, csv, container_name, remote_path):
+    def upload_df_to_blob(self, dataframe, container_name, remote_path):
         self.create_container(container_name)
         blob_client = self.blob_service_client.get_blob_client(
             container=container_name,
