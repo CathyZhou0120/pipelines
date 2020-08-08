@@ -2,7 +2,7 @@ import os
 
 from azureml.core import ScriptRunConfig, Experiment, Environment
 
-from connect.aml_interface import AMLInterface
+from connect import AMLInterface
 from const import (
     AML_COMPUTE_NAME, AML_ENV_NAME, AML_EXPERIMENT_NAME)
 
