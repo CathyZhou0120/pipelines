@@ -21,9 +21,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
         displayName: 'Install requirements'
+
+      - script: |
+          sudo apt install libpq-dev
+          pip install psycopg2
+        displayName: 'Install psql'
     
       - script: |
-          python connect_test.py
+          python pull_from_psql.py
+        displayName: 'pull from psql'
+      
+      - script: |
+          python get_data.py
         displayName: 'testing connection'
         env:
           STORAGE_ACCT_NAME: $(StorageAccountName)
