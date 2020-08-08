@@ -14,9 +14,9 @@ class get_data():
         ys=[]
         for i in df['class'].values:
             if i=='Iris-setosa':
-                ys.append[0]
+                ys.append(0)
             else:
-                ys.append[1]
+                ys.append(1)
         df['class']=ys
         X=df.drop(['class'],axis=1)
         y=df['class']
