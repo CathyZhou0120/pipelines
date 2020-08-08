@@ -11,6 +11,13 @@ from sklearn.model_selection import train_test_split
 class get_data():
     def __init__(self):
         df=pd.read_csv('data.csv')
+        ys=[]
+        for i in df['class'].values:
+            if i=='Iris-setosa':
+                ys.append[0]
+            else:
+                ys.append[1]
+        df['class']=ys
         X=df.drop(['class'],axis=1)
         y=df['class']
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=0.2, random_state=42)
