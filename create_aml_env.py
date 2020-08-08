@@ -35,13 +35,13 @@ def create_aml_environment(aml_interface):
     conda_dep.add_pip_package("pandas==1.0.3")
     conda_dep.add_pip_package("scikit-learn==0.22.2.post1")
     conda_dep.add_pip_package("joblib==0.14.1")
-    whl_filepath = retrieve_whl_filepath()
-    whl_url = Environment.add_private_pip_wheel(
-        workspace=aml_interface.workspace,
-        file_path=whl_filepath,
-        exist_ok=True
-    )
-    conda_dep.add_pip_package(whl_url)
+    #whl_filepath = retrieve_whl_filepath()
+    #whl_url = Environment.add_private_pip_wheel(
+    #    workspace=aml_interface.workspace,
+    #    file_path=whl_filepath,
+    #    exist_ok=True
+    #)
+    #conda_dep.add_pip_package(whl_url)
     aml_env.python.conda_dependencies = conda_dep
     aml_env.docker.enabled = True
     return aml_env

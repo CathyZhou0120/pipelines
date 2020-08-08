@@ -23,10 +23,6 @@ jobs:
         displayName: 'Install setuptools and wheel'
 
       - script: |
-          python setup.py bdist_wheel
-        displayName: 'Create wheel file'
-
-      - script: |
           pip install -r requirements.txt
         displayName: 'Install requirements'
 
