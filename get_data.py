@@ -40,12 +40,12 @@ class get_data():
             'test/y_test.csv'
         )
         blob_storage.upload_df_to_blob(
-            self.X_valid,
+            self.X_val,
             SCORING_CONTAINER,
             'X_valid.csv'
         )
         blob_storage.upload_df_to_blob(
-            self.y_valid,
+            self.y_val,
             SCORING_CONTAINER,
             'y_valid.csv'
         )
