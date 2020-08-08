@@ -46,7 +46,7 @@ def upload_training_data(BlobStorageInterface, X_train, y_train,X_val, y_val, X_
             'X_valid.csv'
         )
     BlobStorageInterface.upload_df_to_blob(
-            sy_valid,
+            y_valid,
             SCORING_CONTAINER,
             'y_valid.csv'
         )
