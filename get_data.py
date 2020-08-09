@@ -21,7 +21,7 @@ class get_data():
         X=df.drop(['class'],axis=1)
         y=df['class']
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-        self.X_train, self.X_test, self.X_val, self.y_val = train_test_split(self.X_train, self.y_train, test_size=0.2, random_state=42)
+        self.X_train, self.X_val, self.y_train, self.y_val = train_test_split(self.X_train, self.y_train, test_size=0.2, random_state=42)
 
 
     def upload_training_data(self, blob_storage):
