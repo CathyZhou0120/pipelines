@@ -30,13 +30,6 @@ def prepare_data(workspace):
     y_test = y_test['class']
     return x_train, y_train, x_test, y_test
 
-
-def train_model(x_train, y_train,n):
-    classifier = RandomForestClassifier(n_estimators=n)
-    classifier.fit(x_train, y_train)
-    return classifier
-
-
 def evaluate_model(classifier, x_test, y_test, run):
     y_pred = classifier.predict(x_test)
     model_f1_score = f1_score(y_test, y_pred)
@@ -54,25 +47,14 @@ def save_model(classifer,name):
     joblib.dump(classifer, model_path)
     return model_path
 
-
-def register_model(run, model_path):
-    run.upload_file(model_path, "outputs/model.pkl")
-    model = run.register_model(
-        model_name=MODEL_NAME,
-        model_path="outputs/model.pkl"
-    )
-    run.log('Model_ID', model.id)
-
-
 def main():
     run = Run.get_context()
     workspace = run.experiment.workspace
     x_train, y_train, x_test, y_test = prepare_data(workspace)
-    for n in [25,50,100]:
-        classifier = train_model(x_train, y_train,n=n)
-        evaluate_model(classifier, x_test, y_test, run)
-        model_path = save_model(classifier,'model_%s.pkl' % n)
-        #register_model(run, model_path)
+    classifier = RandomForestClassifier(n_estimators=int(float(sys.argv[2])))
+    classifier.fit(x_train, y_train)
+    evaluate_model(classifier, x_test, y_test, run)
+    model_path = save_model(classifier,'model_%s.pkl' % sys.argv[2] )
 
 
 if __name__ == '__main__':

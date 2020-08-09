@@ -10,12 +10,13 @@ from const import (
 __here__ = os.path.dirname(__file__)
 
 
-def submit_run(aml_interface):
+def submit_run(aml_interface,n):
     experiment = Experiment(aml_interface.workspace, AML_EXPERIMENT_NAME)
     src_dir = __here__
     run_config = ScriptRunConfig(
         source_directory=src_dir,
-        script='train.py'
+        script='train.py',
+        arguments=['--arg1',n]
     )
     run_config.run_config.target = aml_interface.get_compute_target(
         AML_COMPUTE_NAME,
@@ -32,7 +33,7 @@ def submit_run(aml_interface):
     print(run.get_metrics())
 
 
-def main():
+def main(n):
     # Retrieve vars from env
     workspace_name = os.environ['AML_WORKSPACE_NAME']
     resource_group = os.environ['RESOURCE_GROUP']
@@ -47,8 +48,9 @@ def main():
     aml_interface = AMLInterface(
         spn_credentials, subscription_id, workspace_name, resource_group
     )
-    submit_run(aml_interface)
+    submit_run(aml_interface,n)
 
 
 if __name__ == '__main__':
-    main()
+    for i in [25,100]:
+        main(i)

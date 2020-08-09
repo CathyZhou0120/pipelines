@@ -37,3 +37,14 @@ jobs:
           AML_WORKSPACE_NAME: $(AmlWorkspaceName)
           RESOURCE_GROUP: $(ResourceGroup)
           SUBSCRIPTION_ID: $(SubscriptionID)
+      
+      - script: |
+          python evaluate.py
+        displayName: 'Evaluate and select best model'
+        env:
+          TENANT_ID: $(TenantID)
+          SPN_ID: $(SpnID)
+          SPN_PASSWORD: $(SpnPassword)
+          AML_WORKSPACE_NAME: $(AmlWorkspaceName)
+          RESOURCE_GROUP: $(ResourceGroup)
+          SUBSCRIPTION_ID: $(SubscriptionID)
