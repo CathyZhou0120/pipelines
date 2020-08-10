@@ -1,0 +1,40 @@
+trigger:
+  branches:
+    include:
+      - 'master'
+
+name: 'pull_from_psql'
+jobs:
+  - job: 'pull_from_psql'
+    pool:
+      vmImage: 'ubuntu-16.04'
+    variables:
+      - group: KeyVault
+      - group: ProductionEnvVars
+    steps:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '3.7.8'
+          architecture: 'x64'
+    
+      - script: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        displayName: 'Install requirements'
+      
+      - script: |
+          python pull_from_psql.py
+        displayName: 'pull from psql'
+        env:
+          TENANT_ID: $(TenantID)
+          SPN_ID: $(SpnID)
+          SPN_PASSWORD: $(SpnPassword)
+          AML_WORKSPACE_NAME: $(AmlWorkspaceName)
+          RESOURCE_GROUP: $(ResourceGroup)
+          SUBSCRIPTION_ID: $(SubscriptionID)
+          DBname: $(DBname)
+          DBuser: $(DBuser)
+          DBhost: $(DBhost)
+          DBpassword: $(DBpassword)
+          port: $(port)
+          sslmode: $(sslmode)

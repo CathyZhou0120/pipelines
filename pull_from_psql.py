@@ -1,7 +1,8 @@
 import psycopg2
 import csv
+import os
 
-conn_string = """dbname='exampledb' user='cathyzhou@cathydb2' host='cathydb2.postgres.database.azure.com' password='3.14159Zyr' port='5432' sslmode='require'"""
+#conn_string = """dbname='exampledb' user='cathyzhou@cathydb2' host='cathydb2.postgres.database.azure.com' password='3.14159Zyr' port='5432' sslmode='require'"""
 # Construct connection string
 
 
@@ -21,4 +22,18 @@ def get_data(conn_string):
 
 
 if __name__ == '__main__':
+    dbname=os.environ['DBname']
+    user=os.environ['DBuser']
+    host=os.environ['DBhost']
+    password=os.environ['DBpassword']
+    port=os.environ['port']
+    sslmode=os.environ['sslmode']
+
+    spn_credentials = {
+        'tenant_id': os.environ['TENANT_ID'],
+        'service_principal_id': os.environ['SPN_ID'],
+        'service_principal_password': os.environ['SPN_PASSWORD'],
+    }
+    
+    conn_string="host={0} user={1} dbname={2} password={3} port={4} sslmode={5}".format(host, user, dbname, password, port, sslmode)
     get_data(conn_string)
