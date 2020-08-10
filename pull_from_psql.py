@@ -27,7 +27,7 @@ if __name__ == '__main__':
     host=os.environ['DBhost']
     password=os.environ['DBpassword']
     port=os.environ['port']
-    sslmode=os.environ['sslmode']
+    #sslmode=os.environ['sslmode']
 
     spn_credentials = {
         'tenant_id': os.environ['TENANT_ID'],
@@ -35,5 +35,5 @@ if __name__ == '__main__':
         'service_principal_password': os.environ['SPN_PASSWORD'],
     }
     
-    conn_string="host={0} user={1} dbname={2} password={3} port={4} sslmode={5}".format(host, user, dbname, password, port, sslmode)
+    conn_string="host={0} user={1} dbname={2} password={3} port={4}".format(host, user, dbname, password, port)
     get_data(conn_string)
