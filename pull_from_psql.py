@@ -27,10 +27,11 @@ def main():
     password=os.environ['DBpassword']
     port=os.environ['port']
     sslmode=os.environ['sslmode']
+    tenent_id=os.environ['TENANT_ID']
 
     conn_string="""host={0} user={1} dbname={2} password={3} port={4} sslmode={5}""".format(host, user, dbname, password, port, sslmode)
-    get_data(conn_string)
-
+    #get_data(conn_string)
+    print(conn_string, tenent_id)
 
 
 if __name__ == '__main__':
