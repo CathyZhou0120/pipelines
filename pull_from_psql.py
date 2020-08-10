@@ -20,8 +20,7 @@ def get_data(conn_string):
             writer.writerow({'sepal_length': i[0], 'sepal_width': i[1],'peta_length': i[2],'petal_width': i[3],'class': i[4]})
 
 
-
-if __name__ == '__main__':
+def main():
     dbname=os.environ['DBname']
     user=os.environ['DBuser']
     host=os.environ['DBhost']
@@ -29,12 +28,11 @@ if __name__ == '__main__':
     port=os.environ['port']
     sslmode=os.environ['sslmode']
 
-    spn_credentials = {
-        'tenant_id': os.environ['TENANT_ID'],
-        'service_principal_id': os.environ['SPN_ID'],
-        'service_principal_password': os.environ['SPN_PASSWORD'],
-    }
-    
     conn_string="""host={0} user={1} dbname={2} password={3} port={4} sslmode={5}""".format(host, user, dbname, password, port, sslmode)
-    #get_data(conn_string)
-    print(conn_string)
+    get_data(conn_string)
+
+
+
+if __name__ == '__main__':
+    main()
+
