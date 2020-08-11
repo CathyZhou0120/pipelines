@@ -38,7 +38,7 @@ jobs:
           SUBSCRIPTION_ID: $(SubscriptionID)
           dbname: $(dbname)
           dbuser: $(dbuser)
-          dbuser: $(dbuser)
+          dbhost: $(dbhost)
           dbpassword: $(dbpassword)
           dbport: $(dbport)
           dbslmode: $(dbslmode)
