@@ -1,7 +1,4 @@
-trigger:
-  branches:
-    include:
-      - 'master'
+trigger: none
 
 name: 'pull_from_psql'
 jobs:

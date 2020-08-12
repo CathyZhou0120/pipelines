@@ -47,6 +47,7 @@ def save_model(classifer,name):
     os.makedirs(output_dir, exist_ok=True)
     model_path = os.path.join(output_dir, name)
     joblib.dump(classifer, model_path)
+    run.log('model path',model_path)
     return model_path
 
 def main():

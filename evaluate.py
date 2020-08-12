@@ -43,7 +43,7 @@ def register_model(run_id,experiment):
     model_path = [l for l in files if r.match(l)]
     path,model = os.path.split(model_path[0])
 
-    model = best_run.register_model(model_name = model, model_path = path)
+    model = best_run.register_model(model_name = model, model_path = 'outputs/model.pkl')
     return path
 
 
