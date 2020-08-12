@@ -21,16 +21,19 @@ def evaluate(experiment,metric):
         run_metrics = run.get_metrics()
         run_details = run.get_details()
     
-        run_f1=run_metrics[metric]
-        run_id = run_details['runId']
+        try:
+            run_f1=run_metrics[metric]
+            run_id = run_details['runId']
     
-        if max_f1 is None:
-            max_f1=run_f1
-            max_run_id = run_id
-        else:
-            if run_f1 > max_f1:
+            if max_f1 is None:
                 max_f1=run_f1
-                max_run_id=run_id
+                max_run_id = run_id
+            else:
+                if run_f1 > max_f1:
+                    max_f1=run_f1
+                    max_run_id=run_id
+        except:
+            pass
     return max_run_id
 
 def register_model(run_id,experiment):
@@ -41,6 +44,7 @@ def register_model(run_id,experiment):
     path,model = os.path.split(model_path[0])
 
     model = best_run.register_model(model_name = model, model_path = path)
+    return path
 
 
 def main():
