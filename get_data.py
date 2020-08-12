@@ -48,13 +48,13 @@ class get_data():
         )
         blob_storage.upload_df_to_blob(
             self.X_val,
-            SCORING_CONTAINER,
-            'X_valid.csv'
+            TRAINING_CONTAINER,
+            'valid/X_valid.csv'
         )
         blob_storage.upload_df_to_blob(
             self.y_val,
-            SCORING_CONTAINER,
-            'y_valid.csv'
+            TRAINING_CONTAINER,
+            'valid/y_valid.csv'
         )
     def upload_data(self, blob_storage):
         self.upload_training_data(blob_storage)

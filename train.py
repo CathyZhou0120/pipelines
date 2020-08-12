@@ -23,12 +23,12 @@ def get_df_from_datastore_path(datastore, datastore_path):
 
 def prepare_data(workspace):
     training_datastore = Datastore.get(workspace, TRAINING_DATASTORE)
-    validation_datastore = Datastore.get(workspace, SCORING_CONTAINER)
+    #validation_datastore = Datastore.get(workspace, SCORING_CONTAINER)
     x_train = get_df_from_datastore_path(training_datastore, 'train/X_train.csv')
     y_train = get_df_from_datastore_path(training_datastore, 'train/y_train.csv')
     y_train = y_train['class']
-    x_test = get_df_from_datastore_path(validation_datastore, 'test/X_valid.csv')
-    y_test = get_df_from_datastore_path(validation_datastore, 'test/y_valid.csv')
+    x_test = get_df_from_datastore_path(training_datastore, 'valid/X_valid.csv')
+    y_test = get_df_from_datastore_path(training_datastore, 'valid/y_valid.csv')
     y_test = y_test['class']
     return x_train, y_train, x_test, y_test
 
