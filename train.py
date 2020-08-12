@@ -3,7 +3,8 @@ from sklearn.metrics import f1_score
 from azureml.core import Datastore, Dataset, Run
 import joblib
 from sklearn.metrics import precision_score, recall_score
-from const import TRAINING_DATASTORE, MODEL_NAME
+from const import TRAINING_DATASTORE, SCORING_CONTAINER, MODEL_NAME, AML_EXPERIMENT_NAME
+import os 
 
 
 __here__ = os.path.dirname(__file__)
@@ -21,12 +22,13 @@ def get_df_from_datastore_path(datastore, datastore_path):
 
 
 def prepare_data(workspace):
-    datastore = Datastore.get(workspace, TRAINING_DATASTORE)
-    x_train = get_df_from_datastore_path(datastore, 'train/X_train.csv')
-    y_train = get_df_from_datastore_path(datastore, 'train/y_train.csv')
+    training_datastore = Datastore.get(workspace, TRAINING_DATASTORE)
+    validation_datastore = Datastore.get(workspace, SCORING_CONTAINER)
+    x_train = get_df_from_datastore_path(training_datastore, 'train/X_train.csv')
+    y_train = get_df_from_datastore_path(training_datastore, 'train/y_train.csv')
     y_train = y_train['class']
-    x_test = get_df_from_datastore_path(datastore, 'test/X_test.csv')
-    y_test = get_df_from_datastore_path(datastore, 'test/y_test.csv')
+    x_test = get_df_from_datastore_path(validation_datastore, 'test/X_valid.csv')
+    y_test = get_df_from_datastore_path(validation_datastore, 'test/y_valid.csv')
     y_test = y_test['class']
     return x_train, y_train, x_test, y_test
 
@@ -54,7 +56,9 @@ def main():
     classifier = RandomForestClassifier(n_estimators=int(float(sys.argv[2])))
     classifier.fit(x_train, y_train)
     evaluate_model(classifier, x_test, y_test, run)
-    model_path = save_model(classifier,'model_%s.pkl' % sys.argv[2] )
+    model_path = save_model(classifier,'model.pkl' )
+    return model_path
+
 
 
 if __name__ == '__main__':
