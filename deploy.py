@@ -4,7 +4,7 @@ from azureml.core.environment import Environment
 from azureml.core.model import InferenceConfig, Model
 from azureml.core.webservice import AciWebservice, Webservice
 
-from connect.aml_interface import AMLInterface
+from connect import AMLInterface
 from const import (
     AML_ENV_NAME, DEPLOYMENT_SERVICE_NAME, MODEL_NAME)
 
