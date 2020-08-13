@@ -30,7 +30,7 @@ def deploy(aml_interface,inference_config,service_name):
     print(service.scoring_uri)
 
 
-def main(inference_config,service_name):
+def main():
     workspace_name = os.environ['AML_WORKSPACE_NAME']
     resource_group = os.environ['RESOURCE_GROUP']
     subscription_id = os.environ['SUBSCRIPTION_ID']
@@ -44,21 +44,17 @@ def main(inference_config,service_name):
     aml_interface = AMLInterface(
         spn_credentials, subscription_id, workspace_name, resource_group
     )
-    #webservices = aml_interface.workspace.webservices.keys()
-    
-    deploy(aml_interface,inference_config,service_name)
-
-
-
-if __name__ == '__main__':
-
-    service_name = 'aml-pipeline-deploy'
 
     scoring_script_path = os.path.join(__here__, 'score.py')
     aml_env = Environment.get(
         workspace=aml_interface.workspace,
         name=AML_ENV_NAME
     )
+    service_name = 'aml-pipeline-deploy'
     inference_config = InferenceConfig(entry_script=scoring_script_path, environment=aml_env)
+    deploy(aml_interface,inference_config,service_name)
 
-    main(inference_config,service_name)
+
+
+if __name__ == '__main__':
+    main()
