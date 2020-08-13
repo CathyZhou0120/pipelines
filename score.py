@@ -1,17 +1,18 @@
 # pylint: skip-file
 import json
 
-import joblib
+
 import numpy as np
 from azureml.core.model import Model
-
+import pickle 
 from const import MODEL_NAME
 
 
 def init():
     global model
     model_path = Model.get_model_path(MODEL_NAME)
-    model = joblib.load(model_path)
+    with open(model_path, 'rb') as model_file:
+        model = pickle.load(model_file)
 
 
 def run(data):
