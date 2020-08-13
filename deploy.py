@@ -6,7 +6,7 @@ from azureml.core.webservice import AciWebservice, Webservice
 
 from connect import AMLInterface
 from const import (
-    AML_ENV_NAME, DEPLOYMENT_SERVICE_NAME, MODEL_NAME)
+    AML_ENV_NAME, MODEL_NAME)
 
 
 __here__ = os.path.dirname(__file__)
