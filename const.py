@@ -9,3 +9,5 @@ AML_EXPERIMENT_NAME = 'pipeline-experiment-3'
 
 MODEL_NAME = 'model.pkl'
 MODEL_VERSION = 5
+
+DEPLOYMENT_SERVICE_NAME='test-deploy'
