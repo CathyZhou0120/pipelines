@@ -28,12 +28,12 @@ def get_data(host,user,dbname,password,port,sslmode):
 
 
 def main():
-    dbname=os.environ['dbname']
-    user=os.environ['dbuser']
-    host=os.environ['dbhost']
-    password=os.environ['dbpassword']
-    port=os.environ['dbport']
-    sslmode=os.environ['dbsslmode']
+    dbname=os.environ['DBNAME']
+    user=os.environ['DBUSER']
+    host=os.environ['DBHOST']
+    password=os.environ['DBPASSWORD']
+    port=os.environ['DBPORT']
+    sslmode=os.environ['DBSSL']
     #tenent_id=os.environ['TENANT_ID']
 
     #conn_string="""host={0} user={1} dbname={2} password={3} port={4} sslmode={5}""".format(host, user, dbname, password, port, sslmode)
