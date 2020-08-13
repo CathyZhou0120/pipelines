@@ -28,7 +28,7 @@ jobs:
         displayName: 'Install requirements'
     
       - script: |
-          python deploy.py
+          python deploy2.py
         displayName: 'Deploy AML Model to ACI Web Service'
         env:
           TENANT_ID: $(TenantID)
