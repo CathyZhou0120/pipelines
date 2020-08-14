@@ -1,0 +1,41 @@
+trigger: none
+
+name: 'prediction_data'
+jobs:
+  - job: 'prediction_data'
+    pool:
+      vmImage: 'ubuntu-16.04'
+    variables:
+      - group: KeyVault
+      - group: ProductionEnvVars
+    steps:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '3.7.8'
+          architecture: 'x64'
+      
+      - script: |
+          sudo apt install libpq-dev
+        displayName: 'Install libpq-dev'
+
+      - script: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        displayName: 'Install requirements'
+      
+      - script: |
+          python get_prediction_data.py
+        displayName: 'register prediction data with Dataset'
+        env:
+          TENANT_ID: $(TenantID)
+          SPN_ID: $(SpnID)
+          SPN_PASSWORD: $(SpnPassword)
+          AML_WORKSPACE_NAME: $(AmlWorkspaceName)
+          RESOURCE_GROUP: $(ResourceGroup)
+          SUBSCRIPTION_ID: $(SubscriptionID)
+          DBNAME: $(dbname)
+          DBUSER: $(dbuser)
+          DBHOST: $(dbhost)
+          DBPASSWORD: $(dbpassword)
+          DBPORT: $(dbport)
+          DBSSL: $(dbssl)

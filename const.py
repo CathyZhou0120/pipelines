@@ -9,3 +9,7 @@ AML_EXPERIMENT_NAME = 'pipeline-experiment-3'
 
 MODEL_NAME = 'model.pkl'
 MODEL_VERSION = 5
+PREDICTION_FILE = 'prediction/data.csv'
+PREDICTION_PATH = 'prediction/'
+TARGET_PATH = 'prediction/'
+PREDICTION_DATASET_NAME= 'prediction_dataset'
