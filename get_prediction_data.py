@@ -7,6 +7,7 @@ from azureml.core.datastore import Datastore
 from connect import AMLInterface 
 from const import PREDICTION_FILE, PREDICTION_PATH, TARGET_PATH, PREDICTION_DATASET_NAME
 
+__here__ = os.path.dirname(__file__)
 
 def get_data(host,user,dbname,password,port,sslmode):
     conn = psycopg2.connect(
@@ -21,7 +22,9 @@ def get_data(host,user,dbname,password,port,sslmode):
     cursor.execute("SELECT * FROM iris LIMIT 20;")
     rows = cursor.fetchall()
 
-    with open(PREDICTION_FILE, 'w') as f:
+    
+    filename = os.path.join(__here__, '/', PREDICTION_FILE)
+    with open(filename, 'w') as f:
         fieldnames = ['sepal_length', 'sepal_width','peta_length','petal_width','class']
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -31,7 +34,10 @@ def get_data(host,user,dbname,password,port,sslmode):
 
 def register_dataset(aml_interface):
     datastore = aml_interface.workspace.get_default_datastore()
-    datastore.upload(src_dir=PREDICTION_PATH, target_path=TARGET_PATH,overwrite=True)   
+
+    src_dir = os.path.join(__here__, '/', PREDICTION_PATH)
+    target_path = os.path.join(__here__, '/', TARGET_PATH)
+    datastore.upload(src_dir=src_dir, target_path=target_path,overwrite=True)   
 
     dataset = Dataset.Tabular.from_delimited_files(datastore.path(PREDICTION_FILE))
     dataset = dataset.register(workspace=aml_interface.workspace,
