@@ -31,7 +31,7 @@ def get_data(host,user,dbname,password,port,sslmode):
 
 def register_dataset(aml_interface):
     datastore = aml_interface.workspace.get_default_datastore()
-    datastore.upload(src_dir=PREDICTION_PATH, target_path=TARGET_PATH,,overwrite=True)   
+    datastore.upload(src_dir=PREDICTION_PATH, target_path=TARGET_PATH,overwrite=True)   
 
     dataset = Dataset.Tabular.from_delimited_files(datastore.path(PREDICTION_FILE))
     dataset = dataset.register(workspace=aml_interface.workspace,
