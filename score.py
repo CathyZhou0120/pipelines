@@ -4,15 +4,14 @@ import json
 
 import numpy as np
 from azureml.core.model import Model
-import pickle 
+from sklearn.externals import joblib
 from const import MODEL_NAME
 
 
 def init():
     global model
     model_path = Model.get_model_path(MODEL_NAME)
-    with open(model_path, 'rb') as model_file:
-        model = pickle.load(model_file)
+    model = joblib.load(model_path)
 
 
 def run(data):
