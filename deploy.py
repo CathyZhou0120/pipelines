@@ -50,7 +50,7 @@ def main():
         workspace=aml_interface.workspace,
         name=AML_ENV_NAME
     )
-    service_name = 'aml-pipeline-deploy-2'
+    service_name = 'aml-pipeline-deploy-3'
     inference_config = InferenceConfig(entry_script=scoring_script_path, environment=aml_env)
     deploy(aml_interface,inference_config,service_name)
 
