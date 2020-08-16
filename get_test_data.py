@@ -39,6 +39,9 @@ def main():
     port=os.environ['DBPORT']
     sslmode=os.environ['DBSSL']
     #tenent_id=os.environ['TENANT_ID']
+    resource_group = os.environ['RESOURCE_GROUP']
+    subscription_id = os.environ['SUBSCRIPTION_ID']
+    workspace_name = os.environ['AML_WORKSPACE_NAME']
     
     spn_credentials = {
         'tenant_id': os.environ['TENANT_ID'],
