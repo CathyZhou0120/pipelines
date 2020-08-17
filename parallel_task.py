@@ -8,6 +8,7 @@ from azureml.core.runconfig import CondaDependencies
 from azureml.contrib.pipeline.steps import ParallelRunStep, ParallelRunConfig
 from azureml.core import Experiment
 from azureml.pipeline.core import Pipeline
+import os
 
 def get_test_data(aml_interface):
     datastore = aml_interface.workspace.get_default_datastore()
