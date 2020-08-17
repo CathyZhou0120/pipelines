@@ -8,9 +8,9 @@ schedules:
       - master
     always: true
 
-name: 'deployment_pipeline'
+name: 'get_test_data'
 jobs:
-  - job: 'deployment_pipeline_job'
+  - job: 'get_test_data'
     pool:
       vmImage: 'ubuntu-16.04'
     variables:
