@@ -19,17 +19,17 @@ def get_data(host,user,dbname,password,port,sslmode):
     sslmode=sslmode
     ) 
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM iris LIMIT 20;")
+    cursor.execute("SELECT sepal_length, sepal_width, peta_length, petal_width FROM iris LIMIT 20;")
     rows = cursor.fetchall()
 
     
     filename = os.path.join(__here__, '/', PREDICTION_FILE)
-    with open('prediction/data.csv', 'w') as f:
-        fieldnames = ['sepal_length', 'sepal_width','peta_length','petal_width','class']
+    with open('prediction/data_new.csv', 'w') as f:
+        fieldnames = ['sepal_length', 'sepal_width','peta_length','petal_width']
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         for i in rows:
-            writer.writerow({'sepal_length': i[0], 'sepal_width': i[1],'peta_length': i[2],'petal_width': i[3],'class': i[4]})
+            writer.writerow({'sepal_length': i[0], 'sepal_width': i[1],'peta_length': i[2],'petal_width': i[3]})
 
 
 def register_dataset(aml_interface):
@@ -38,7 +38,7 @@ def register_dataset(aml_interface):
     src_dir = os.path.join(__here__, '/', PREDICTION_PATH)
     target_path = os.path.join(__here__, '/', TARGET_PATH)
     #datastore.upload(src_dir='prediction/', target_path='prediction/',overwrite=True)   
-    datastore_paths = [(datastore, 'prediction/data.csv')]
+    datastore_paths = [(datastore, 'prediction/data_new.csv')]
     dataset = Dataset.Tabular.from_delimited_files(path=datastore_paths)
     dataset = dataset.register(workspace=aml_interface.workspace,
                                  name=PREDICTION_DATASET_NAME)

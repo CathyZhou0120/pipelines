@@ -12,6 +12,6 @@ MODEL_VERSION = 5
 PREDICTION_FILE = 'prediction/data.csv'
 PREDICTION_PATH = 'prediction/'
 TARGET_PATH = 'prediction/'
-PREDICTION_DATASET_NAME= 'prediction_dataset'
+PREDICTION_DATASET_NAME= 'prediction_dataset_new'
 PARALLEL_TASK_NAME='batch_inference'
 COMPUTE_NAME='cpu-compute'
