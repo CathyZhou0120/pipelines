@@ -34,8 +34,9 @@ def set_env():
     return predict_env
 
 
-def run_parallel(distributed_csv_iris_step):
-    pipeline = Pipeline(workspace=aml_interface.workspace, steps=[distributed_csv_iris_step])   
+def run_parallel(distributed_csv_iris_step,aml_interface):
+    ws = aml_interface.workspace
+    pipeline = Pipeline(workspace=ws, steps=[distributed_csv_iris_step])   
     pipeline_run = Experiment(ws, 'iris-prs').submit(pipeline) 
     pipeline_run.wait_for_completion(show_output=True)
 
@@ -81,7 +82,7 @@ def main():
     #arguments=['--model_name', 'model_new.pkl'],
     allow_reuse=True)
  
-    run_parallel(distributed_csv_iris_step)
+    run_parallel(distributed_csv_iris_step,aml_interface)
 
 
 if __name__ == '__main__':
