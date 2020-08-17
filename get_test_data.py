@@ -29,7 +29,7 @@ def get_data(host,user,dbname,password,port,sslmode,aml_interface):
             writer.writerow({'sepal_length': i[0], 'sepal_width': i[1],'peta_length': i[2],'petal_width': i[3],'class': i[4]})
     
     datastore = aml_interface.workspace.get_default_datastore()
-    datastore_paths = [(datastore, 'data.csv')]
+    datastore_paths = [(datastore, './*.csv')]
     dataset = Dataset.Tabular.from_delimited_files(path=datastore_paths)
     dataset = dataset.register(workspace=aml_interface.workspace,
                                  name='example_data')
