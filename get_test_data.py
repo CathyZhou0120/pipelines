@@ -20,7 +20,7 @@ def get_data(host,user,dbname,password,port,sslmode,aml_interface):
     cursor.execute("SELECT * FROM iris LIMIT 30;")
     rows = cursor.fetchall()
 
-    with open('example/data.csv', 'w') as f:
+    with open('data.csv', 'w') as f:
         fieldnames = ['sepal_length', 'sepal_width','peta_length','petal_width','class']
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -28,7 +28,7 @@ def get_data(host,user,dbname,password,port,sslmode,aml_interface):
             writer.writerow({'sepal_length': i[0], 'sepal_width': i[1],'peta_length': i[2],'petal_width': i[3],'class': i[4]})
     
     datastore = aml_interface.workspace.get_default_datastore()
-    datastore_paths = [(datastore, 'example/data.csv')]
+    datastore_paths = [(datastore, 'data.csv')]
     dataset = Dataset.Tabular.from_delimited_files(path=datastore_paths)
     dataset = dataset.register(workspace=aml_interface.workspace,
                                  name='example_data')
