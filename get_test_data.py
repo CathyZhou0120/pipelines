@@ -2,6 +2,7 @@ import psycopg2
 import csv
 import os
 from connect import AMLInterface
+from azureml.core import Dataset
 
 #conn_string = """dbname='exampledb' user='cathyzhou@cathydb2' host='cathydb2.postgres.database.azure.com' password='3.14159Zyr' port='5432' sslmode='require'"""
 # Construct connection string
