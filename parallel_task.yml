@@ -21,8 +21,9 @@ jobs:
       - script: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install azureml.pipeline.steps
         displayName: 'Install requirements'
-      
+        
       - script: |
           python parallel_task.py
         displayName: 'batch prediction inference'
