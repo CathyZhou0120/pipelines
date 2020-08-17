@@ -5,7 +5,7 @@ from const import PREDICTION_FILE,PREDICTION_DATASET_NAME,PARALLEL_TASK_NAME,COM
 from azureml.pipeline.core import PipelineData
 from azureml.core import Environment
 from azureml.core.runconfig import CondaDependencies
-from azureml.contrib.pipeline.steps import ParallelRunStep, ParallelRunConfig
+from azureml.pipeline.steps import ParallelRunStep, ParallelRunConfig
 from azureml.core import Experiment
 from azureml.pipeline.core import Pipeline
 
