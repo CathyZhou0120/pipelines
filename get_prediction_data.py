@@ -25,7 +25,7 @@ def get_data(host,user,dbname,password,port,sslmode):
 
     
     #filename = os.path.join(__here__, '/', PREDICTION_FILE)
-    with open('prediction/data_new.csv', 'w') as f:
+    with open('data_new.csv', 'w') as f:
         fieldnames = ['sepal_length', 'sepal_width','peta_length','petal_width']
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -38,8 +38,8 @@ def register_dataset(aml_interface):
 
     #src = os.path.join(__here__, '/', PREDICTION_PATH)
     #target_path = os.path.join(__here__, '/', TARGET_PATH)
-    #datastore.upload(src_dir='prediction/', target_path='prediction/',overwrite=True)   
-    datastore_paths = [(datastore, 'prediction/data_new.csv')]
+    datastore.upload(src_dir='.', target_path='testdata/',overwrite=True)   
+    datastore_paths = [(datastore, 'testdata/data_new.csv')]
     dataset = Dataset.Tabular.from_delimited_files(path=datastore_paths)
     dataset = dataset.register(workspace=aml_interface.workspace,
                                  name=PREDICTION_DATASET_NAME)
