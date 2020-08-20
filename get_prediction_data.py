@@ -55,8 +55,14 @@ def upload_prediction_to_container(blob_storage):
 def upload_data(blob_storage):
     upload_prediction_to_container(blob_storage)
 
-def register_dataset(datastore, path,aml_interface):
+def register_dataset(path,aml_interface,storage_acct_name,storage_acct_key):
     workspace= aml_interface.workspace
+    datastore = Datastore.register_azure_blob_container(workspace=workspace, 
+                                                         datastore_name='prediction', 
+                                                         container_name='prediction', 
+                                                         account_name=storage_acct_name,
+                                                         account_key=storage_acct_key)
+
     prediction_datastore = Datastore.get(workspace, datastore)
     datastore_path = [(prediction_datastore, path)]
     dataset = Dataset.Tabular.from_delimited_files(
@@ -97,7 +103,7 @@ def main():
 
     get_data(host,user,dbname,password,port,sslmode)
     upload_data(blob_storage_interface)
-    register_dataset('prediction', 'prediction/data_new.csv',aml_interface)
+    register_dataset('prediction/data_new.csv',aml_interface,storage_acct_name,storage_acct_key)
 
 if __name__ == '__main__':
     main()
