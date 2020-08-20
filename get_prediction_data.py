@@ -38,7 +38,7 @@ def register_dataset(aml_interface):
 
     #src = os.path.join(__here__, '/', PREDICTION_PATH)
     #target_path = os.path.join(__here__, '/', TARGET_PATH)
-    datastore.upload(src_dir='.', target_path='testdata/',overwrite=True)   
+    datastore.upload_files(files = ['./data_new.csv'], target_path='testdata/',overwrite=True,show_progress = True)   
     datastore_paths = [(datastore, 'testdata/data_new.csv')]
     dataset = Dataset.Tabular.from_delimited_files(path=datastore_paths)
     dataset = dataset.register(workspace=aml_interface.workspace,
