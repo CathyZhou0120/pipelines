@@ -45,7 +45,7 @@ def get_data(host,user,dbname,password,port,sslmode):
     #                             name=PREDICTION_DATASET_NAME)
     #return src_dir,target_path
 
-def register_dataset(blob_storage):
+def upload_prediction_to_container(blob_storage):
     blob_storage.upload_csv_to_blob(
           'data_new.csv',
           'prediction',
@@ -53,7 +53,15 @@ def register_dataset(blob_storage):
         )
 
 def upload_data(blob_storage):
-    register_dataset(blob_storage)
+    upload_prediction_to_container(blob_storage)
+
+def register_dataset(datastore, datastore_path,aml_interface):
+    datastore_path = [(datastore, datastore_path)]
+    dataset = Dataset.Tabular.from_delimited_files(
+        path=datastore_path
+    )
+    dataset = dataset.register(workspace=aml_interface.workspace,
+                                 name='Prediction')
     
 
 
@@ -87,6 +95,7 @@ def main():
 
     get_data(host,user,dbname,password,port,sslmode)
     upload_data(blob_storage_interface)
+    register_dataset('prediction', 'prediction/data_new.csv',aml_interface)
 
 if __name__ == '__main__':
     main()
