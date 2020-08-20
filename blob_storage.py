@@ -48,7 +48,7 @@ class BlobStorageInterface:
             blob=remote_path
         )
         with open(csv, "rb") as data:
-            blob_client.upload_blob(data)
+            blob_client.upload_blob(data,overwrite=True)
 
     def download_blob_to_df(self, container_name, remote_path):
         blob_client = self.blob_service_client.get_blob_client(
