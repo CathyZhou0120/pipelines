@@ -39,3 +39,5 @@ jobs:
           DBPASSWORD: $(dbpassword)
           DBPORT: $(dbport)
           DBSSL: $(dbssl)
+          STORAGE_ACCT_NAME: $(StorageAccountName)
+          STORAGE_ACCT_KEY: $(storageaccountkey)
