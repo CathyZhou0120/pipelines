@@ -86,7 +86,7 @@ def main():
     )
 
     get_data(host,user,dbname,password,port,sslmode)
-    upload_data(blob_storage)
+    upload_data(blob_storage_interface)
 
 if __name__ == '__main__':
     main()
