@@ -55,8 +55,8 @@ def upload_prediction_to_container(blob_storage):
 def upload_data(blob_storage):
     upload_prediction_to_container(blob_storage)
 
-def register_dataset(datastore, datastore_path,aml_interface):
-    datastore_path = [(datastore, datastore_path)]
+def register_dataset(datastore, path,aml_interface):
+    datastore_path = [(datastore, path)]
     dataset = Dataset.Tabular.from_delimited_files(
         path=datastore_path
     )
