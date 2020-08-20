@@ -41,6 +41,15 @@ class BlobStorageInterface:
                 dataframe.to_csv(index=False, header=True).encode()
             )
 
+    def upload_csv_to_blob(self, csv, container_name, remote_path):
+        self.create_container(container_name)
+        blob_client = self.blob_service_client.get_blob_client(
+            container=container_name,
+            blob=remote_path
+        )
+        with open(csv, "rb") as data:
+            blob_client.upload_blob(data)
+
     def download_blob_to_df(self, container_name, remote_path):
         blob_client = self.blob_service_client.get_blob_client(
             container=container_name,
